@@ -17,7 +17,7 @@ body {
 /*スタート画面*/
 #start_screen {
     position: relative;
-    background-image: url(/sources/startScreen.png);
+    background-image: url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/startScreen.png?raw=true);
     background-position: center;
     background-size: cover;
     width: 100%;
