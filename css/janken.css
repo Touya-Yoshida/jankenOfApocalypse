@@ -76,7 +76,7 @@ body {
 
 /*背景*/
 #jankenField {
-    background-image: url(/sources/back.png);
+    background-image: url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/back.png?raw=true);
     background-position: center;
     background-size: cover;
     width: 100%;
