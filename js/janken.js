@@ -83,7 +83,7 @@ const outResult = (receiveCountResult) => {
     if (countWin === 5) {
         jankenField.style.display = 'none';
         targetResult.style.display = 'block';
-        targetResult.style.backgroundImage = `url(/sources/win_img.png)`;
+        targetResult.style.backgroundImage = `url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/win_img.png?raw=true)`;
         outResultMessage.innerHTML = '勝利';
         outResultMessage.style.color = 'black';
         target_message.style.display = 'block';
@@ -93,7 +93,7 @@ const outResult = (receiveCountResult) => {
     if (countLose === 5) {
         jankenField.style.display = 'none';
         targetResult.style.display = 'block';
-        targetResult.style.backgroundImage = `url(/sources/lose_img.png)`;
+        targetResult.style.backgroundImage = `url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/lose_img.png?raw=true)`;
         outResultMessage.innerHTML = '敗北';
         outResultMessage.style.color = 'red';
         target_message.style.display = 'block';
