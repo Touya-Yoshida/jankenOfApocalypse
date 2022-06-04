@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>じゃんけん X オブ X アポカリプス</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/janken.css">
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--スタート画面-->
+    <div class="container-fluid" id="start_screen">
+        <h1 id="title_txt">じゃんけん X オブ X アポカリプス</h1>
+        <button id="start_button"></button>
+        <p id="clickTxt">↑クリックしてね</p>
+        <button id="ruleButton">ルール</button>
+    </div>
+
+    <!--ジャンケンフィールド-->
+    <div class="container-fluid" id="jankenField">
+        <div class="d-flex justify-content-around rule_field">
+            <p class="countWinTxt">あなた:<span id="userCountWin"></span></p>
+            <img src="/sources/rule_img.png" alt="" id="rule_img">
+            <p class="countWinTxt">CPU:<span id="cpuCountWin"></span></p>
+        </div>
+
+        <div class="row">
+            <div class="d-flex justify-content-around target_hand" id="battleField">
+                <img id="userHand" src="" alt="">
+                <img id="cpuHand" src="" alt="">
+            </div>
+        </div>
+
+        <div class="row" id="adjustStyle">
+            <ul class="d-flex justify-content-around">
+                <li class="hands" id="god"><img src="/sources/god.png" alt=""></li>
+                <li class="hands" id="devil"><img src="/sources/devil.png" alt=""></li>
+                <li class="hands" id="human"><img src="/sources/hage.png" alt="" style="width: 80%;"></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--勝敗画面-->
+    <div class="container-fluid" id="target_result">
+        <p id="output_result"></p>
+    </div>
+
+
+
+    <script src="/js/janken.js"></script>
+</body>
+
+</html>

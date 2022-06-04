@@ -1,0 +1,167 @@
+/*全体*/
+@font-face {
+    font-family: aoyanagi;
+    src: url(/font/AoyagiSosekiFont2.otf);
+}
+
+
+body {
+    font-family: 'aoyanagi', serif;
+}
+
+
+.row {
+    z-index: 100;
+}
+
+/*スタート画面*/
+#start_screen {
+    position: relative;
+    background-image: url(/sources/startScreen.png);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    font-family: 'MS Mincho';
+}
+
+#start_button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 160px;
+    border-radius: 100px;
+    border: none;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+}
+
+#title_txt {
+    text-align: center;
+    padding-top: 130px;
+    color: rgb(8, 176, 75);
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+#clickTxt {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    color: rgb(255, 216, 20);
+    background-color: rgba(8, 176, 75, 0.552);
+    border-radius: 30px;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 23px;
+    z-index: 99999;
+}
+
+#ruleButton {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    color: rgb(255, 216, 20);
+    background-color: rgba(8, 176, 75, 0.552);
+    border-radius: 30px;
+    border: none;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 24px;
+    z-index: 99999;
+}
+
+
+/*背景*/
+#jankenField {
+    background-image: url(/sources/back.png);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    font-family: 'MS Mincho';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    display: none;
+}
+
+/*バトルフィールド*/
+.target_hand * {
+    display: none;
+    max-width: 20%;
+    height: auto;
+
+}
+
+.rule_field {
+    width: 90%;
+    height: 200px;
+    margin: 20px auto 0;
+    border-radius: 20px;
+    background-color: rgba(137, 137, 137, 0.561);
+}
+
+#rule_img {
+    width: 240px;
+    height: auto;
+}
+
+.countWinTxt {
+    font-size: 24px;
+    color: white;
+    margin-top: 72px;
+}
+
+
+
+/*手札*/
+ul {
+    list-style: none;
+}
+
+
+img {
+    width: 75%;
+    height: 180px;
+    cursor: pointer;
+}
+
+img:hover {
+    opacity: 0.5;
+}
+
+#adjustStyle {
+    width: 90%;
+    height: 200px;
+    margin: 0 auto 20px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: rgba(137, 137, 137, 0.561);
+}
+
+#devil {
+    margin-top: 11px;
+}
+
+/*勝利の文字列のスタイル指定*/
+#target_result {
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+
+#output_result {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16rem;
+    z-index: 99999;
+    display: none;
+}
