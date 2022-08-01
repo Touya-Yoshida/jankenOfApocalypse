@@ -1,122 +1,122 @@
-let startScreen = document.getElementById('start_screen');//スタート画面部のコンテナ
-let startButton = document.getElementById('start_button');//スタート画面のボタンの特定
-let jankenField = document.getElementById('jankenField');//ジャンケンを行う画面部
-let handAll = document.querySelectorAll('.hands');//手札の画像クラスの特定
-let hGod = document.getElementById('god');//手札：神の特定
-let hDevil = document.getElementById('devil');//手札：悪魔の特定
-let hHUman = document.getElementById('human');//手札：人間の特定
-let userResultHand = document.getElementById('userHand');//フィールドに出力するユーザーの手札
-let cpuResultHand = document.getElementById('cpuHand');//フィールドに出力するCPUの手札
-let target_message = document.getElementById('output_result');//displayをかけているメッセージ部の特定
-let outResultMessage = document.getElementById('output_result');//勝敗メッセージ部の特定
-let userCountWin = document.getElementById('userCountWin');//ユーザーの勝利数をカウントするメッセージ部の特定
-let cpuCountWin = document.getElementById('cpuCountWin');//cpuの勝利数をカウントするメッセージ部の特定
-let cpuHandArray = [];
-let targetResult = document.getElementById('target_result');//勝敗決定時の画面部
+ $(function (){
+    let startScreen = $('#start_screen');//スタート画面部のコンテナ
+    let startButton = $('#start_button');//スタート画面のボタンの特定
+    let jankenField = $('#jankenField');//ジャンケンを行う画面部
+    let handAll = $('.hands');//手札の画像クラスの特定
+    let userResultHand = $('#userHand');//フィールドに出力するユーザーの手札
+    let cpuResultHand = $('#cpuHand');//フィールドに出力するCPUの手札
+    let target_message = $('#output_result');//displayをかけているメッセージ部の特定
+    let outResultMessage = $('#output_result');//勝敗メッセージ部の特定
+    let userCountWin = $('#userCountWin');//ユーザーの勝利数をカウントするメッセージ部の特定
+    let cpuCountWin = $('#cpuCountWin');//cpuの勝利数をカウントするメッセージ部の特定
+    let cpuHandArray = [];
+    let targetResult = $('#target_result');//勝敗決定時の画面部
 
-//スタート画面
-startButton.addEventListener('click', function () {
-    startScreen.style.display = 'none';
-    jankenField.style.display = 'flex';
-}, false);
+    //スタート画面
+    $(startButton).on('click', function () {
+        $(startScreen).css("display", "none")
+        $(jankenField).css("display", "flex")
+    });
+    //画像のsrcを配列に格納
+     for (let i = 0; i < handAll.length; i++) {
+         cpuHandArray[i] = $(handAll).eq(i).children('img').prop('src')
+     }
+    //ルール説明
+    const ruleButton = $('#ruleButton');
+    $(ruleButton).on('click', function () {
+        alert(
+            'これは、じゃんけんに似たゲームだ！\n下に表示されてる画像をクリックしてCPUと戦おう!\n先に5勝した方が勝ちだぞ!'
+        );
+    });
 
-//画像のsrcを配列に格納
-for (let i = 0; i < handAll.length; i++) {
-    cpuHandArray[i] = handAll[i].children[0].src;
-}
-//ルール説明
-const ruleButton = document.getElementById('ruleButton');
-ruleButton.addEventListener('click', function () {
-    alert(
-        'これは、じゃんけんに似たゲームだ！\n下に表示されてる画像をクリックしてCPUと戦おう!\n先に5勝した方が勝ちだぞ!'
-    );
-}, false);
+    //クリック時の処理
+    let receiveCountResult = [];
+    for (let i = 0; i < handAll.length; i++) {
+        $(handAll).eq(i).on('click', function () {
+            $(userResultHand).prop('src',$(handAll).eq(i).children('img').prop('src'))
+            if ($(userResultHand).prop('src') !== '') {//空のsrc属性に値が代入された時、displayをblockにさせて表示できるようにする
+                $(userResultHand).css('display','block')
+                //console.log(userResultHand.src)
+            }
+            let cpuNum = cpuRandomHand();//cpuの画像出力及びcpuのランダム数値をreturn
+            receiveCountResult = checkResult(i, cpuNum);//勝敗判定の関数でカウントした結果を配列で受け取る
+            outResult(receiveCountResult);
+        });
+    }
 
-//クリック時の処理
-let receiveCountResult = [];
-for (let i = 0; i < handAll.length; i++) {
-    handAll[i].addEventListener('click', function () {
-        userResultHand.src = handAll[i].children[0].src;
-        if (userResultHand.src !== '') {//空のsrc属性に値が代入された時、displayをblockにさせて表示できるようにする
-            userResultHand.style.display = 'block';
+    //配列に格納したsrcをランダムに出力&画像の表示
+    const cpuRandomHand = () => {
+        //0~2までのランダムな数値を生成
+        let randomNum = Math.floor(Math.random() * 3) + 0;
+        $(cpuResultHand).prop('src',$(cpuHandArray).eq(randomNum))
+        if ($(cpuResultHand).prop('src') !== '') {
+            $(cpuResultHand).css('display','block')
+            console.log('jjjj')
         }
-        let cpuNum = cpuRandomHand();//cpuの画像出力及びcpuのランダム数値をreturn
-        receiveCountResult = checkResult(i, cpuNum);//勝敗判定の関数でカウントした結果を配列で受け取る
-        outResult(receiveCountResult);
-    }, false);
-}
+        return randomNum;
+    }
 
-//配列に格納したsrcをランダムに出力&画像の表示
-const cpuRandomHand = () => {
-    //0~2までのランダムな数値を生成
-    let randomNum = Math.floor(Math.random() * 3) + 0;
-    cpuResultHand.src = cpuHandArray[randomNum];
-    if (cpuResultHand.src !== '') {
-        cpuResultHand.style.display = 'block';
+    let countWin = 0;
+    let countLose = 0;
+    let countDraw = 0;
+    let countResultArray = [0, 0, 0];//勝敗のカウントをまとめた配列
+    const checkResult = (userNum, cpuNum) => {//←ここの引数の名前は何でもよい
+        //勝ち判定
+        if (((userNum === 0) && (cpuNum === 1)) || ((userNum === 1) && (cpuNum === 2)) || ((userNum === 2) && (cpuNum === 0))) {
+            countWin++;
+            $(userCountWin).html(countWin + '勝目')
+        }
+        if (((cpuNum === 0) && (userNum === 1)) || ((cpuNum === 1) && (userNum === 2)) || ((cpuNum === 2) && (userNum === 0))) {
+            countLose++;
+            $(cpuCountWin).html(countLose + '勝目')
+        }
+        if (userNum === cpuNum) {
+            countDraw++;
+        }
+        countResultArray = [countWin, countLose, countDraw];
+        return countResultArray;
     }
-    return randomNum;
-}
 
-let countWin = 0;
-let countLose = 0;
-let countDraw = 0;
-let countResultArray = [0, 0, 0];//勝敗のカウントをまとめた配列
-const checkResult = (userNum, cpuNum) => {//←ここの引数の名前は何でもよい
-    //勝ち判定
-    if (((userNum === 0) && (cpuNum === 1)) || ((userNum === 1) && (cpuNum === 2)) || ((userNum === 2) && (cpuNum === 0))) {
-        countWin++;
-        userCountWin.innerHTML = countWin + '勝目';
+    //勝敗を判定する(先に5勝)関数
+    const outResult = (receiveCountResult) => {
+        if (countWin === 5) {
+            $(jankenField).css('display','none')
+            $(targetResult).css('display','block')
+            $(targetResult).css('backgroundImage',`url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/win_img.png?raw=true)`)
+            $(outResultMessage).html('勝利')
+            $(outResultMessage).css('color','black')
+            $(target_message).css('display','block')
+            resetCount();
+            moveStartScreen();
+        }
+        if (countLose === 5) {
+            $(jankenField).css('display','none')
+            $(targetResult).css('display','block')
+            $(targetResult).css('backgroundImage',`url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/lose_img.png?raw=true)`)
+            $(outResultMessage).html('敗北')
+            $(outResultMessage).css('color','red')
+            $(target_message).css('display','block')
+            resetCount();
+            moveStartScreen();
+        }
     }
-    if (((cpuNum === 0) && (userNum === 1)) || ((cpuNum === 1) && (userNum === 2)) || ((cpuNum === 2) && (userNum === 0))) {
-        countLose++;
-        cpuCountWin.innerHTML = countLose + '勝目';
-    }
-    if (userNum === cpuNum) {
-        countDraw++;
-    }
-    countResultArray = [countWin, countLose, countDraw];
-    return countResultArray;
-}
 
-//勝敗を判定する(先に5勝)関数
-const outResult = (receiveCountResult) => {
-    if (countWin === 5) {
-        jankenField.style.display = 'none';
-        targetResult.style.display = 'block';
-        targetResult.style.backgroundImage = `url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/win_img.png?raw=true)`;
-        outResultMessage.innerHTML = '勝利';
-        outResultMessage.style.color = 'black';
-        target_message.style.display = 'block';
-        resetCount();
-        moveStartScreen();
+    const resetCount = () => {
+        countWin = 0;
+        countLose = 0;
+        countDraw = 0;
+        $(userCountWin).html('')
+        $(cpuCountWin).html('')
+        countResultArray = [0, 0, 0];
+        $(userResultHand).prop('src','')
+        $(cpuResultHand).prop('src','') 
     }
-    if (countLose === 5) {
-        jankenField.style.display = 'none';
-        targetResult.style.display = 'block';
-        targetResult.style.backgroundImage = `url(https://github.com/Touya-Yoshida/jankenOfApocalypse/blob/main/sources/lose_img.png?raw=true)`;
-        outResultMessage.innerHTML = '敗北';
-        outResultMessage.style.color = 'red';
-        target_message.style.display = 'block';
-        resetCount();
-        moveStartScreen();
+
+    //スタート画面に戻る関数
+    const moveStartScreen = () => {
+        setTimeout(() => { //4秒後下記を実行
+            $(targetResult).css('display','none') //フィールド画面を閉じる
+            $(startScreen).css('display','block') //タイトル画面へ戻る
+        }, 4000);
     }
-}
-
-const resetCount = () => {
-    countWin = 0;
-    countLose = 0;
-    countDraw = 0;
-    userCountWin.innerHTML = '';
-    cpuCountWin.innerHTML = '';
-    countResultArray = [0, 0, 0];
-    userResultHand.src = '';
-    cpuResultHand.src = '';
-}
-
-//スタート画面に戻る関数
-const moveStartScreen = () => {
-    setTimeout(() => { //4秒後下記を実行
-        targetResult.style.display = 'none'; //フィールド画面を閉じる
-        startScreen.style.display = ''; //タイトル画面へ戻る
-    }, 4000);
-}
+});
