@@ -48,10 +48,13 @@
     const cpuRandomHand = () => {
         //0~2までのランダムな数値を生成
         let randomNum = Math.floor(Math.random() * 3) + 0;
-        $(cpuResultHand).prop('src',$(cpuHandArray).eq(randomNum))
+        //console.log(cpuHandArray)
+        //cpuResultHand.src = $(cpuHandArray).eq(randomNum)
+        $(cpuResultHand).prop('src',cpuHandArray[randomNum])
         if ($(cpuResultHand).prop('src') !== '') {
             $(cpuResultHand).css('display','block')
-            console.log('jjjj')
+            console.log(cpuResultHand.src)
+            
         }
         return randomNum;
     }
